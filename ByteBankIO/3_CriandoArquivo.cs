@@ -25,4 +25,21 @@ partial class Program
             escritor.Write("456,65465,456.0,Pedro");
         }
     }
+
+    static void TestaEscrita()
+    {
+        var caminhoNovoArquivo = "teste.txt";
+
+        using (var fluxoDoArquivo = new FileStream(caminhoNovoArquivo, FileMode.Create))
+        using (var escritor = new StreamWriter(fluxoDoArquivo))
+        {
+            for (var i = 0; i < 1000000; i++)
+            {
+                escritor.WriteLine($"Linha {i}");
+                escritor.Flush(); // Despeja o buffer para o Stream!
+                Console.WriteLine($"Linha {i} foi escrita no arquivo. Tecle enter...");
+                Console.ReadLine();
+            }
+        }
+    }
 }
